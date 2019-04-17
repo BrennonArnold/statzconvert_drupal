@@ -1,0 +1,4 @@
+services:
+  statzconvert.enabler:
+    class: Drupal\statzconvert\EnablerService
+    arguments: []

@@ -1,0 +1,10 @@
+name: StatzConvert Utility
+type: module
+description: 'Converts files. Duh.'
+version: 1.0
+core: 8.x
+
+dependencies:
+  - block
+
+configure: statzconvert.admin_settings

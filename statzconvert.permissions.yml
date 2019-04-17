@@ -1,0 +1,10 @@
+view statzconvert files:
+  title: View Converted Files
+  description: Can access and download files converted by StatzConvert
+submit statzconvert forms:
+  title: Access & Submit Conversion Forms
+  description: Access & submit input files for conversion
+administer statzconvert:
+  title: Administer StatzConvert System
+  description: Access the StatzConvert setting page and administer system users
+  restrict access: true

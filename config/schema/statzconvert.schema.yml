@@ -1,0 +1,12 @@
+# Schema for the configuration file of StatzConvert module.
+
+statzconvert.settings:
+  type: config_object
+  label: StatzConvert Content Type Settings
+  mapping:
+    allowed_types:
+      type: sequence
+      label: Content Types StatzConvert can display on
+      sequence:
+        type: string
+        label: Content type

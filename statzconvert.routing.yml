@@ -1,0 +1,87 @@
+statzconvert.content:
+  path: '/statzconvert'
+  defaults:
+    _controller: '\Drupal\statzconvert\Controller\HomeController::content'
+    _title: 'StatzConvert Main Menu'
+  requirements:
+    _permission: 'view statzconvert files'
+
+statzconvert.convertedfiles:
+  path: '/statzconvert/filelisting'
+  defaults:
+    _controller: '\Drupal\statzconvert\Controller\FileListController::content'
+    _title: 'DakStats Converted Files'
+  requirements:
+    _permission: 'view statzconvert files'
+
+statzconvert.statcrewconvert:
+  path: '/statzconvert/scxmlutils'
+  defaults:
+    _controller: '\Drupal\statzconvert\Controller\SCXMLController::content'
+    _title: 'Convert StatCrew XML'
+  requirements:
+    _permission: 'submit statzconvert forms'
+
+statzconvert.csvconvert:
+  path: '/statzconvert/wscsvutils'
+  defaults:
+    _controller: '\Drupal\statzconvert\Controller\WSCSVController::content'
+    _title: 'Convert Website CSV'
+  requirements:
+    _permission: 'submit statzconvert forms'
+
+statzconvert.adminusers:
+  path: '/statzconvert/adminusers'
+  defaults:
+    _controller: '\Drupal\statzconvert\Controller\AdminUsersController::content'
+    _title: 'Admin System Users'
+  requirements:
+    _permission: 'administer statzconvert'
+
+statzconvert.scxmlform:
+  path: '/statzconvert/scxmlform'
+  defaults:
+    _form: '\Drupal\statzconvert\Form\scXMLForm'
+    _title: 'Convert StatCrew XML'
+  requirements:
+    _permission: 'submit statzconvert forms'
+
+statzconvert.wscsvform:
+  path: '/statzconvert/wscsvform'
+  defaults:
+    _form: '\Drupal\statzconvert\Form\wsCSVForm'
+    _title: 'Convert Website CSV'
+  requirements:
+    _permission: 'submit statzconvert forms'
+
+statzconvert.userprofileformadmin:
+  path: '/statzconvert/upduseradm'
+  defaults:
+    _form: '\Drupal\statzconvert\Form\updUserAdminForm'
+    _title: 'Update Profile Info'
+  requirements:
+    _permission: 'administer statzconvert'
+
+statzconvert.userprofileform:
+  path: '/statzconvert/upduser'
+  defaults:
+    _form: '\Drupal\statzconvert\Form\updUserForm'
+    _title: 'Update Profile Info'
+  requirements:
+    _permission: 'view statzconvert files'
+
+statzconvert.admin_settings:
+  path: '/admin/config/content/statzconvert'
+  defaults:
+    _form: '\Drupal\statzconvert\Form\StatzConvertSettingsForm'
+    _title: 'StatzConvert Settings'
+  requirements:
+    _permission: 'administer statzconvert'
+
+statzconvert.report:
+  path: '/admin/reports/statzconvert'
+  defaults:
+    _controller: '\Drupal\statzconvert\Controller\ReportController::report'
+    _title: 'List of File Conversions Performed'
+  requirements:
+    _permission: 'administer statzconvert'

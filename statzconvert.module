@@ -1,0 +1,126 @@
+<?php
+/**
+* @file
+* A description of what your module does.
+*/
+use Drupal\statzconvert\Entity\includes;
+use Drupal\Core\Form\FormStateInterface;
+
+function statzconvert_theme($existing, $type, $theme, $path) {
+    return [
+        'default' => [
+            'variables' => [
+                'pageTitle' => NULL,
+                'authlevel' => NULL,
+                'navBar'    => NULL,
+                'useNav'    => NULL,
+            ],
+        ],
+
+        'filelisting' => [
+            'variables' => [
+                'pageTitle' => NULL,
+                'authlevel' => NULL,
+                'navBar'    => NULL,
+                'useNav'    => NULL,
+            ],
+        ],
+
+        'scxmlutils' => [
+            'variables' => [
+                'pageTitle' => NULL,
+                'authlevel' => NULL,
+                'navBar'    => NULL,
+                'useNav'    => NULL,
+                'form'      => NULL,
+            ],
+            //'template'      => 'scxmlutils',
+            'render element' => 'form',
+        ],
+
+        'wscsvutils' => [
+            'variables' => [
+                'pageTitle' => NULL,
+                'authlevel' => NULL,
+                'navBar'    => NULL,
+                'useNav'    => NULL,
+            ],
+        ],
+
+        'adminusers' => [
+            'variables' => [
+                'pageTitle' => NULL,
+                'authlevel' => NULL,
+                'navBar'    => NULL,
+                'useNav'    => NULL,
+            ],
+        ],
+    ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function statzconvert_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+    if ($form_id == 'comment_comment_form') {
+        $form['actions']['submit']['#value'] = t('Comment');
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+/**
+ * Implements hook_form_alter().
+ */
+function statzconvert_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+    $node = $form_state->getFormObject()->getEntity();
+    $current_node_type = $node->getType();
+    $config = \Drupal::config('statzconvert.settings');
+    $types = $config->get('allowed_types', array());
+
+    if(in_array($current_node_type, $types)) {
+        $form['statzconvert'] = [
+            '#type' => 'details',
+            '#title' => t('StatzConvert Collection'),
+            '#access' => \Drupal::currentUser()->hasPermission('administer statzconvert'),
+            '#group' => 'advanced',
+            '#weight' => 100,
+        ];
+
+        /** @var \Drupal\statzconvert\EnablerService $enabler */
+        $enabler = \Drupal::service('statzconvert.enabler');
+        $form['statzconvert']['statzconvert_enabled'] = [
+            '#type' => 'checkbox',
+            '#title' => t('Allow StatzConvert on this node.'),
+            '#default_value' => $enabler->isEnabled($node),
+        ];
+
+        foreach (array_keys($form['actions']) as $action) {
+            if ($action != 'preview' && isset($form['actions'][$action]['#type']) &&
+                $form['actions'][$action]['#type'] === 'submit') {
+                $form['actions'][$action]['#submit'][] = 'statzconvert_form_node_form_submit';
+            }
+        }
+    }
+}
+
+/**
+ * Form submission handler for StatzConvert item field on the node form.
+ *
+ * @see statzconvert_form_node_form_alter()
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function statzconvert_form_node_form_submit(array $form, FormStateInterface $form_state) {
+    $enabler = \Drupal::service('statzconvert.enabler');
+    $node = $form_state->getFormObject()->getEntity();
+    if ($enabled = $form_state->getValue('statzconvert_enabled')) {
+        $enabler->setEnabled($node);
+    } else {
+        $enabler->delEnabled($node);
+    }
+}

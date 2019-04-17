@@ -1,0 +1,116 @@
+<?php
+use Drupal\system\Entity\Menu;
+
+/**
+ * Implements hook_schema().
+ */
+function statzconvert_schema() {
+    $schema['statzconvert'] = [
+        'description' => 'Stores basic information about file conversion sessions.',
+        'fields' => [
+            'id' => [
+                'description' => 'Primary identifier for the record.',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ],
+            'uid' => [
+                'description' => 'The {users}.uid that added the record.',
+                'type' => 'int',
+                'not null' => TRUE,
+                'default' => 0,
+            ],
+            'nid' => [
+                'description' => 'The {node}.nid for this record.',
+                'type' => 'int',
+                'not null' => FALSE,
+                'default' => 0,
+            ],
+            'gameid' => [
+                'description' => 'The unique gameid for this record.',
+                'type' => 'int',
+                'not null' => FALSE,
+                'default' => 0,
+            ],
+            'visid' => [
+                'description' => 'Visitor team code.',
+                'type' => 'varchar',
+                'length' => 64,
+                'not null' => FALSE,
+                'default' => '',
+            ],
+            'visdbid' => [
+                'description' => 'Database ID for Visiting Team',
+                'type' => 'int',
+                'not null' => FALSE,
+                'default' => 0,
+            ],
+            'homid' => [
+                'description' => 'Home team code.',
+                'type' => 'varchar',
+                'length' => 64,
+                'not null' => FALSE,
+                'default' => '',
+            ],
+            'homdbid' => [
+                'description' => 'Database ID for Home Team',
+                'type' => 'int',
+                'not null' => FALSE,
+                'default' => 0,
+            ],
+            'created' => [
+                'description' => 'Timestamp for when record was created.',
+                'type' => 'int',
+                'default' => 0,
+                'not null' => TRUE,
+            ],
+        ],
+        'primary key' => ['id'],
+        'indexes' => [
+            'node' => ['nid'],
+            'node_user' => ['nid', 'uid'],
+        ],
+    ];
+
+    $schema['statzconvert_enabled'] = [
+        'description' => 'Tracks whether StatzConvert is enabled for a node.',
+        'fields' => [
+            'nid' => [
+                'description' => 'The {node}.nid that has StatzConvert enabled.',
+                'type' => 'int',
+                'not null' => TRUE,
+                'default' => 0,
+            ],
+        ],
+        'primary key' => ['nid'],
+    ];
+
+    $schema['statzconvert_teamlist'] = [
+        'description' => 'Contains team list for StatzConvert dropdown selections.',
+        'fields' => [
+            'id' => [
+                'description' => 'Primary identifier for the record.',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ],
+            'city' => [
+                'description' => 'Team name.',
+                'type' => 'varchar',
+                'length' => 64,
+                'not null' => FALSE,
+                'default' => '',
+            ],
+            'name' => [
+                'description' => 'Team mascot.',
+                'type' => 'varchar',
+                'length' => 64,
+                'not null' => FALSE,
+                'default' => '',
+            ],
+        ],
+        'primary key' => ['id'],
+    ];
+
+    return $schema;
+}

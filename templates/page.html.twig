@@ -1,0 +1,12 @@
+{% autoescape false %}
+    {% if useNav %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            {{ navBar }}
+        </div>
+    </nav>
+    {% endif %}
+    {% block content %}
+
+    {% endblock %}
+{% endautoescape %}

@@ -1,0 +1,21 @@
+{% autoescape false %}
+    {% if useNav %}
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                {{ navBar }}
+            </div>
+        </nav>
+    {% endif %}
+    <div class="panel panel-default">
+        <!--<div class="panel-heading">
+        <h4 style="font-weight: bold;">{{ pageTitle }}</h4>
+    </div>-->
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    This is the admin users page.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endautoescape %}

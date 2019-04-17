@@ -1,0 +1,20 @@
+statzconvert.homepage:
+  title: 'StatzConvert'
+  description: 'Link to StatzConvert Home Page'
+  route_name: statzconvert.content
+  weight: 10
+  menu_name: main
+
+statzconvert.admin_settings:
+  title: 'StatzConvert Settings'
+  description: 'Control aspects of StatzConvert'
+  route_name: statzconvert.admin_settings
+  parent: system.admin_config_content
+  weight: 10
+
+statzconvert.report:
+  title: 'StatzConvert Conversions Performed'
+  description: 'List of StatzConvert File Conversions'
+  route_name: statzconvert.report
+  parent: system.admin_reports
+  weight: -5
